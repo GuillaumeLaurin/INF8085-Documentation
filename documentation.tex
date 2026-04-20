@@ -1,0 +1,191 @@
+% =======================================================
+% Feuilles de notes (4 pags) pour INF8085
+% =======================================================
+
+\documentclass[9pt, a4paper, twoside]{article}
+
+% --- Packages essentiels ---
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[
+    top=0.5cm, bottom=0.5cm,
+    left=0.5cm, right=0.5cm,
+]{geometry}
+\usepackage{amsmath}
+\usepackage{multicol}   % Plusieurs colonnes
+\usepackage{fancyhdr}   % En-têtes et pieds de page
+\usepackage{titlesec}   % Personnaliser les titres
+\usepackage{enumitem}   % Listes personnalisées
+\usepackage{booktabs}   % Beaux tableaux
+\usepackage{xcolor}     % Couleurs
+\usepackage{tcolorbox}  % Boîtes colorées
+\usepackage{graphicx}   % Insertion d'images
+
+% --- Couleurs personnalisées ---
+
+\definecolor{accentblue}{RGB}{30, 100, 200}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+\definecolor{darkgray}{RGB}{80, 80, 80}
+\definecolor{accentred}{RGB}{200, 50, 50}
+\definecolor{accentgreen}{RGB}{50, 150, 50}
+
+% --- En-têtes et pieds de page ---
+
+\pagestyle{empty}
+
+% --- Style des sections ---
+
+\titleformat{\section}% 
+    {\footnotesize\bfseries\color{accentblue}}
+    {\thesection.}{0.5em}{}[\titlerule]
+
+\titleformat{\subsection}
+    {\footnotesize\bfseries\color{accentblue!70!black}}
+    {\thesubsection.}{0.5em}{}
+
+\titlespacing{\section}{0pt}{0pt}{0pt}
+
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+
+% --- Environnements utiles ---
+
+\newtcolorbox{vocabulaire}[1][]{
+    colback=accentblue!5, colframe=accentblue!70!black,
+    fonttitle=\bfseries, title=Vocabulaire #1,
+    boxrule=0.2pt, arc=5pt, left=0pt, right=0pt, top=0pt, bottom=0pt
+}
+
+% ========================================================================
+
+\begin{document}
+
+% --- Début du contenu 3 colonnes ---
+
+\begin{multicols}{3}
+
+% --- Cours 1 ---
+
+\footnotesize\section{Concepts de base}
+
+\footnotesize\subsection{Qu'est-ce que la sécurité informatique}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize\textbf{Confidentialité}
+    \item\scriptsize\textbf{Intégrité}
+    \item\scriptsize\textbf{Disponibilité}
+    \item\scriptsize\textbf{Auditabilité}
+\end{itemize}
+
+\footnotesize\subsection{Limites de la cyber défense}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Impossible d'assurer une détection à 100$\%$
+    \item\scriptsize Attaque « zero day »
+    \item\scriptsize Techniques d'évasion
+    \item\scriptsize Attaques furtives
+\end{itemize}
+
+% --- Cours 2 ---
+
+\footnotesize\section{Analyse et gestion des risques}
+
+\footnotesize\subsection{Menace}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Bien
+    \begin{itemize}[leftmargin=0.5em,label=$\circ$]
+        \item\scriptsize Object / personne ayant de la valeur
+    \end{itemize}
+    \item\scriptsize Acteur / Agent de menace
+    \begin{itemize}[leftmargin=0.5em,label=$\circ$]
+        \item\scriptsize Object / personne qui met un bien à risque
+    \end{itemize}
+    \item\scriptsize Scénario
+    \begin{itemize}[leftmargin=0.5em,label=$\circ$]
+        \item\scriptsize Séquence d'évènements menant à la perte partielle ou total de la valeur d'un bien
+    \end{itemize}
+\end{itemize}
+
+\footnotesize\subsection{Attaque}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Concrétisation de la menace
+    \begin{itemize}[leftmargin=0.5em,label=$\circ$]
+        \item\scriptsize Acteur + Scénario
+        \item\scriptsize « Une méthode (Comment) par laquelle un acteur particulier (Qui) entreprend une action (Quoi) pour faire subir un dommage à un bien (Pourquoi) »
+    \end{itemize}
+\end{itemize}
+
+\footnotesize\subsection{Vulnérabilité}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Faille qui offre l'opportunité de porter un dommage à un bien
+\end{itemize}
+
+\footnotesize\subsection{Scénario}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Exploitation d'une vulnérabilité par un acteur pour causer un impact
+\end{itemize}
+
+\footnotesize\subsection{Probabilité}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Probabilité que la menace soit réalisée (dans une période de temps)
+\end{itemize}
+
+\footnotesize\subsection{Impact}
+
+\begin{itemize}[leftmargin=0.5em,label=$\bullet$]
+    \item\scriptsize Perte ou dommage à un bien
+\end{itemize}
+
+\footnotesize\subsection{Gestion des risques}
+
+\begin{center}
+
+\scriptsize $R = E = P \cdot I$
+
+\scriptsize Où
+\scriptsize P: Probabilité
+\scriptsize I: Impact
+
+\end{center}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/échelle_risque.png}
+\end{center}
+
+\footnotesize\subsection{Analyse des risques}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/matrice_risque.png}
+\end{center}
+
+% --- Cours 3 ---
+
+\footnotesize\section{Modèle de Shannon}
+
+% --- Cours 4 ---
+
+% --- Cours 5 ---
+
+% --- Cours 6 ---
+
+% --- Cours 7 ---
+
+% --- Cours 8 ---
+
+% --- Cours 9 ---
+
+% --- Cours 10 ---
+
+% --- Cours 11 ---
+
+% --- Cours 12 ---
+
+\end{multicols}
+
+\end{document}
