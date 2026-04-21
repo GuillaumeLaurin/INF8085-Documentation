@@ -1050,6 +1050,82 @@
 
 \footnotesize \section{Sécurité Web}
 
+\footnotesize \subsection{Authentification}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/auth.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Canal de communication sécurisé (https)
+    \begin{itemize}[label={}]
+        \item \scriptsize Repose sur SSL-TLS (au-dessus de la couche 4)
+    \end{itemize}
+    \item \scriptsize Authentifier le serveur
+    \begin{itemize}[label={}]
+        \item \scriptsize Certificat X509
+        \item \scriptsize Image personalisée (par cookie persistent lié au navigateur)
+        \item \scriptsize Authenticité
+    \end{itemize}
+    \item \scriptsize Authentifier le client
+    \begin{itemize}[label={}]
+        \item \scriptsize Certificat X509 sur le poste client (optionel)
+        \item \scriptsize Nom d'utilisateur + Mot de passe
+        \item \scriptsize Authentification deux facteurs
+    \end{itemize}
+    \item \scriptsize Activation de privilèges
+    \begin{itemize}[label={}]
+        \item \scriptsize En fonction du profil d'authentification
+        \item \scriptsize Politique d'autorisation (ou contrôle d'accès)
+    \end{itemize}
+    \item \scriptsize Injection SQL (SQL Injection)
+    \begin{itemize}[label={}]
+        \item \scriptsize ' or '1'='1
+        \item \scriptsize lorsqu'il y a concaténation des identifiants de l'utilisateur
+    \end{itemize}
+\end{itemize}
+
+
+\begin{flushleft}
+    \scriptsize \textbf{Cross site scripting (XSS) non persistent}
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/xss-non-persistent.png}
+\end{center}
+
+\begin{flushleft}
+    \scriptsize \textbf{Cross site scripting (XSS) persistent}
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/xss-persistent.png}
+\end{center}
+
+\begin{flushleft}
+    \scriptsize \textbf{XSS}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Rediriger le trafic du client vers le site de l'attaquant
+    \item \scriptsize Améliorer le référencement du site de l'attaquant
+    \item \scriptsize Faire de l'argent
+    \item \scriptsize Infecter le site du client
+    \item \scriptsize XSS n'a pas de réel impact sur le serveur attaqué
+    \item \scriptsize Le serveur sert seulement à relayer le client vers le site de l'attaquant
+\end{itemize}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Autres types d'attaques contre les applications Web
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Cross Site Request Forgery (XSRT)
+        \item \scriptsize Remote File Inclusion
+        \item \scriptsize Variable tampering
+        \item \scriptsize Interface redressing (clickjacking)
+    \end{itemize}
+\end{itemize}
+
+
 \end{multicols}
 
 \end{document}
