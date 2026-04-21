@@ -68,8 +68,6 @@
 
 \begin{multicols}{3}
 
-% --- Cours 1 ---
-
 \footnotesize \section{Concepts de base}
 
 \footnotesize \subsection{Qu'est-ce que la sécurité informatique}
@@ -89,8 +87,6 @@
     \item \scriptsize Techniques d'évasion
     \item \scriptsize Attaques furtives
 \end{itemize}
-
-% --- Cours 2 ---
 
 \footnotesize \section{Analyse et gestion des risques}
 
@@ -166,8 +162,6 @@
 \begin{center}
     \includegraphics[width=1\linewidth]{static/matrice_risque.png}
 \end{center}
-
-% --- Cours 3 ---
 
 \footnotesize \section{Modèle de Shannon}
 
@@ -289,7 +283,7 @@
 \end{tabular}
 \end{center}
 
-\vspace{-0.5cm}
+\vspace{0.1cm}
 
 \begin{tabular}{ll}
 \scriptsize \textbf{Rail 1 :} & \textcircled{H} \quad l \quad o \quad o \quad l \\
@@ -363,6 +357,79 @@
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize $\Sigma = T = \{0, 1\}$
     \item \scriptsize Algorithme: XOR bit à bit du message et de la clé
+\end{itemize}
+
+\footnotesize \subsection{Confusion}
+
+\begin{flushleft}
+    \scriptsize propriété de rendre la relation entre la clé de chiffrement et le text chiffré la plus complexe possible.
+\end{flushleft}
+
+\footnotesize \subsection{Diffusion}
+
+\begin{flushleft}
+    \scriptsize propriété où la redondance statistique dans un texte en clair est discipée dans les statistiques du texte chiffré.
+\end{flushleft}
+
+\footnotesize \section{Types de chiffrement}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize  bloc
+    \begin{itemize}[label=$\bullet$]
+        \item \scriptsize chaque mot de code (un « bloc ») est codée avec la même clé k.
+    \end{itemize}
+    \item \scriptsize flux  
+    \begin{itemize}[label=$\bullet$]
+        \item \scriptsize chaque mot de code est chiffré avec une clé différente.
+    \end{itemize}
+    \item \scriptsize Symétrique
+    \begin{itemize}[label=$\bullet$]
+        \item \scriptsize clé de déchiffrement = clé de chiffrement
+    \end{itemize}
+    \item \scriptsize Asymétrique
+    \begin{itemize}[label=$\bullet$]
+        \item \scriptsize 2 clés différentes
+        \item \scriptsize clé publique (chiffrement)
+        \item \scriptsize clé privée (déchiffrement)
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{DES}
+
+\begin{flushleft}
+    \scriptsize taille 56 bits
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/des.png}
+\end{center}
+
+\footnotesize \subsection{Double DES}
+
+\begin{itemize}[label={}]
+    \item \scriptsize $E(k_{2}, E(k_{1}, m))$
+    \item \scriptsize si $k_{2} = k_{1} \rightarrow \hat{m} = m$
+    \item \scriptsize donc, $k_{2} \neq k_{1}$
+    \item \scriptsize Équivalent à un DES avec une clé de 57 bits
+    \item \scriptsize Sensible à une attaque meet in the middle
+\end{itemize}
+
+\footnotesize \subsection{Triple DES}
+
+\begin{itemize}[label={}]
+    \item \scriptsize $E(k_{1}, D(k_{2}, E(k_{1}, m)))$
+    \item \scriptsize $k_{1} \neq k_{2}$
+    \item \scriptsize Équivalent à un DES avec une clé de 112 bits
+    \item \scriptsize Sensible à une attaque meet in the middle
+\end{itemize}
+
+\footnotesize \subsection{AES}
+
+\begin{itemize}[label={}]
+    \item \scriptsize blocs de 128 bits
+    \begin{itemize}[label=$\rightarrow$]
+        \item \scriptsize Avec des blocs de clés de 128, 192 ou 256 bits
+    \end{itemize}
 \end{itemize}
 
 % --- Cours 4 ---
