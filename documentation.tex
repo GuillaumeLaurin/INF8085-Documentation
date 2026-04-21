@@ -655,13 +655,284 @@
     \item \scriptsize Les logiciels s'exécutent avec les droits utilisateurs de l'utilisateur qui a lancé le programme
 \end{itemize}
 
+\begin{flushleft}
+    \scriptsize textbf{Utilisateurs}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize User ID (UID) pour chaque utilisateur
+    \item \scriptsize UID 0 est réservé pour l'administrateur (root)
+    \item \scriptsize Les fichiers ont l'ID de l'utilisateur qui a créé le fichier
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize textbf{Groupes}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Group ID (GID)
+    \item \scriptsize Les utilisateur ont un groupe principal
+    \item \scriptsize Les utilisateurs peuvent rejoindre d'autres groupes
+    \item \scriptsize Les fichiers ont le groupe principal de l'utilisateur qui a créé le fihcier
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize Utilisateurs et groupes ne sont pas des objets
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Chaque fichier a un UID et GID assigné
+    \item \scriptsize Chaque programme a un UID et GID assigné
+    \item \scriptsize Avant d'exécuter un appel de fonction du système (« system call »), le contrôleur de référence vérifie:
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Si UID = 0, permettre l'accès
+        \item \scriptsize Sinon, lire la liste de contrôle d'accès de l'objet et vérifier si l'accès est permis
+    \end{itemize}
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize $\underset{\text{U (Propriétaire)}}{\text{RWX}}$ - $\underset{\text{G (Groupe)}}{\text{RWX}}$ - $\underset{\text{O (Autres utilisateurs)}}{\text{RWX}}$
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize  Changement de propriétaire d'un objet
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Commande chown
+        \item \scriptsize Seul l'administrateur root peut exécuter un chown
+    \end{itemize}
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize \textbf{Changement d'un mot de passe - setuid}
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/setuid.png}
+\end{center}
+
 \footnotesize \subsection{DAC et MAC}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Linux utilise le \textbf{Contrôle d'accès discrétionnaire (DAC)}
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Les utilisateurs peuvent changer les permissions de leur fichiers
+    \end{itemize}
+    \item \scriptsize DAC représente les droits sous forme d'une matrice
+    \item \scriptsize DAC fonctionne correctement sous 2 conditions
+    \begin{itemize}[label=$\rightarrow$]
+        \item \scriptsize Si les usagers ne font pas d'erreurs
+        \item \scriptsize On peut faire confiance à tous les programmes
+    \end{itemize}
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/limites-dac.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize MAC = Mandatory Access Control
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Contrôle d'accès obligatoire
+    \end{itemize}
+    \item scriptsize MAC ajoute des étiquettes à chaque sujet et objet
+    \item \scriptsize Une politique d'accès contient les règles d'accès
+    \item \scriptsize Politique par défaut
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize REFUSÉ (« Deny »): l'accès n'est pas permis, à moins qu'il y ait une règle indiquant le contraire dans la politique d'accès
+    \end{itemize}
+    \item \scriptsize Les règles et étiquettes peuvent seulement être changées par un administrateur avec un logiciel de confiance (« Trusted »)
+    \item \scriptsize Exemple d'étiquettes (niveau de sécurité):
+    \begin{itemize}[label={}]
+        \item \scriptsize Public $\le$ Confidentiel $\le$ Secret
+    \end{itemize}
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize  Condition de sécurité (Modèle de Bell et LaPadula)
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize  No Read Up
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Un sujet s peut lire un objet o si:
+        \begin{itemize}[label={}]
+            \item \scriptsize $\text{niveau\_classification(o)} \le \text{niveau\_habilitation(s)}$
+        \end{itemize}
+    \end{itemize}
+    \item \scriptsize  No Write Down
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Un sujet s peut modifier un objet o si:
+        \begin{itemize}[label={}]
+            \item \scriptsize $\text{niveau\_habilitation(s)} \le \text{niveau\_classification(o)}$
+        \end{itemize}
+    \end{itemize}
+    \item Objectif du « No write down »
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Soit un programme s'exécutant au niveau « Secret »
+        \item \scriptsize Ce programme peut lire des données classées « Secret »
+        \item \scriptsize Mais le « No write down » empêche un éventuel piège contenu dans ce programme de transmettre les données lues vers un utilisateur qui ne serait pas habilité au niveau « Secret »
+    \end{itemize}
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/bell_lapadula.png}
+\end{center}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Condition de Bell et LaPadula trop rigides
+    \item \scriptsize Aujourd'hui utilisation d'un autre modèle MAC
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize DTE (Domaine Type Enforcement)
+        \item \scriptsize Implanté dans SELinux (Security Enhanced Linux)
+    \end{itemize}
+\end{itemize}
 
 \footnotesize \subsection{RBAC}
 
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize RBAC = Role Based Access Control
+    \item \scriptsize RBAC est basé sur deux points
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Dans les organisations les employés sont affectés à des rôles
+        \begin{itemize}[label={}]
+            \item \scriptsize Comptable, programmeur, docteur, infirmière, technicien, $\ldots$
+            \item \scriptsize Les rôles sont organisé en hiéarchies
+        \end{itemize}
+        \item le fait que chaque employé, pour exécuter son rôle, a besoin de certaines permissions
+    \end{itemize}
+    \item \scriptsize RBAC s'appuie sur la notion organisationnelle de rôle pour associer des permissions de sécurité aux différents rôles
+    \item \scriptsize Le rôle devient un mécanisme pour associer des permissions aux usagers
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/rbac.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Pour utiliser ses rôles, un usager doit activer des sessions
+    \item \scriptsize Une session est un processus qui agit pour un usager
+    \item \scriptsize Pour accéder à une session, un sujet doit s'authentifier
+    \item \scriptsize Un sujet peut se trouver dans plusieurs sessions simultanément
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/rbac-session.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize On peut introduire une hiéarchie de rôles
+    \item \scriptsize Héritage des permissions
+\end{itemize}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize  Séparation des pouvoirs
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Ce sont les contraintes les plus importantes
+        \item \scriptsize Exemple: Celui qui approuve un chèque (rôle R1) ne peut pas être celui qui le signe (rôle R2)
+        \item \scriptsize Dans RBAC, cela se traduit par une contraintes qui rend impossible qu'un utilisateur soit affectés à R1 et R2
+    \end{itemize}
+    \item \scriptsize SOD statique (SSOD) ou dynamique (DSOD)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize SSOD: la séparation s'applique en toute situation
+        \item \scriptsize DSOD: la séparation s'applique uniquement dans une même session
+    \end{itemize}
+\end{itemize}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize AGLP
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Access - Global - Local - Permission
+        \item \scriptsize Implémentation de RBAC sous Windows
+        \item \scriptsize Repose sur les Active Directory(AD)
+    \end{itemize}
+    \item \scriptsize Éléments
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Groupe « Globaux »
+        \begin{itemize}[label=$\bullet$]
+            \item \scriptsize regroupement des utilisateurs, typiquement selon leur rôles
+            \item \scriptsize généralement définis sur des serveurs de domaine globaux (d'où le nom)
+        \end{itemize}
+        \item \scriptsize Groupe « Locaux »
+        \begin{itemize}[label=$\bullet$]
+            \item \scriptsize auxquels sont attribués des Permissions sur des ressources
+            \item \scriptsize généralement définis et résidans sur les serveurs où ces ressources se trouvent (d'où le nom)
+            \item \scriptsize les membres sont exclusivement des groupes globaux
+        \end{itemize}
+    \end{itemize}
+    \item \scriptsize Principes de base
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize On n'attribue pas de permissions aux groupes globaux ni aux utilisateurs
+        \item \scriptsize On n'ajoute pas d'utilisateurs dans les groupes locaux
+        \item \scriptsize Séparation des responsabilités
+        \begin{itemize}[label={}]
+            \item \scriptsize Gestion des usager: U et G
+            \item \scriptsize Politique de sécurité: G et L
+            \item \scriptsize Administrateur de système: L et R
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/agpl.png}
+\end{center}
+
 \footnotesize \subsection{ABAC}
 
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize ABAC = Attribute Based Access Control
+    \item \scriptsize Dans ABAC, la décision d'accès dépend de politiques qui combinent entre eux des attributs
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Attributs de l'utilisateur
+        \item \scriptsize Attributs de l'action
+        \item \scriptsize Attributs des ressources
+        \item \scriptsize Attributs liés à l'environnement
+    \end{itemize}
+    \item \scriptsize Politique d'autorisation = ensemble de règles
+    \item \scriptsize Intention de ABAC est d'être plus général et flexible que les modèles précécents
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/abac.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize PEP: Policy Enforcement Point
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Donne ou refuse l'accès
+    \end{itemize}
+    \item \scriptsize PDP: Policy Decision Point
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Prend la décision si l'accès doit être donné ou refusé
+        \item \scriptsize Utilise les politiques et règles qui sont enregistré dans une base de données appelée Policy Store
+    \end{itemize}
+    \item \scriptsize PIP: Policy Information Point
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Les valuers des attributs
+        \item \scriptsize L'état de l'environnement
+        \item \scriptsize L'environnement est aussi une catégorie avec ses attributs
+    \end{itemize}
+    \item \scriptsize PAP: Policy Administration Point
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Gère le Policy Store: ajout, suppression de règles
+    \end{itemize}
+\end{itemize}
+
 \footnotesize \subsection{IAM}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize IAM = Identity and Access Management
+    \item \scriptsize Principe de base de l'IAM
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Ne pas mélanger les fonctions du système et le contrôle d'accès
+        \item \scriptsize Fonctions du système = Services, Applications
+    \end{itemize}
+    \item \scriptsize Séparer l'Implémentation des applications et la sécurité
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Ne pas coder « en dur » l'authentification dans les applications
+        \item \scriptsize Ne pas coder « en dur » les autoriations dans les applications
+    \end{itemize}
+    \item \scriptsize Bon principe pour exprimer, déployer et mettre à jour la politique de contrôle d'accès
+\end{itemize}
 
 % --- Cours 7 ---
 
