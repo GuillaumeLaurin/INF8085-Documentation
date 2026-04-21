@@ -481,6 +481,188 @@
     \includegraphics[width=1\linewidth]{static/ecs.png}
 \end{center}
 
+\footnotesize \section{Authentification}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Authentification
+    \begin{itemize}[label={}]
+        \item \scriptsize « Est-ce que c'est la bonne personne/système? »
+        \item \scriptsize Identification usager $\rightarrow$ système
+        \item \scriptsize Identification système $\rightarrow$ système
+        \item \scriptsize Identification système $\rightarrow$ usager
+    \end{itemize}
+    \item \scriptsize Autorisation
+    \begin{itemize}[label={}]
+        \item \scriptsize « Est-ce que cette personne a le droit de faire ça? »
+        \item \scriptsize Contrôle d'accès
+        \begin{itemize}[label=$\bullet$]
+            \item \scriptsize Physique vs. Logique
+            \item \scriptsize Objet protégés et modes d'accès
+            \item \scriptsize Modèles de contrôle d'accès
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{4 modes d'authentification d'un usager}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Par quelque chose qu'il connaît
+    \item \scriptsize Par quelque chose qu'il possède
+    \item \scriptsize Par quelque chose qu'il est (biométrie statique)
+    \item \scriptsize Par quelque chose qu'il fait (biométrie dynamique)
+\end{itemize}
+
+\footnotesize \subsection{Par quelque chose qu'il connaît}
+
+\begin{itemize}[label=$\circ$]
+    \item \scriptsize mot de passe
+    \item \scriptsize phrase de passe
+    \item \scriptsize information personnelle
+    \begin{itemize}[label=$\bullet$]
+        \item \scriptsize nom
+        \item \scriptsize date de naissance
+        \item \scriptsize No.\ d'ass.\ sociale
+        \item \scriptsize $\ldots$
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{Par quelque chose qu'il possède}
+
+\begin{itemize}[label=$\circ$]
+    \item \scriptsize carte magnétique
+    \item \scriptsize carte à puce
+    \item \scriptsize « dongle »
+    \item \scriptsize dispositif « Secure ID »
+    \item \scriptsize dispositif ou carte RFID
+\end{itemize}
+
+\footnotesize \subsection{Par quelque chose qu'il est (biométrie statique)}
+
+\begin{itemize}[label=$\circ$]
+    \item \scriptsize empreintes digitales
+    \item \scriptsize géométrie de la magnétique
+    \item \scriptsize rétine de l'oeil
+    \item \scriptsize iris de l'oeil
+    \item \scriptsize caractéristiques du visage 
+\end{itemize}
+
+\footnotesize \subsection{Par quelque chose qu'il fait (biométrie dynamique)}
+
+\begin{itemize}[label=$\circ$]
+    \item \scriptsize signature
+    \item \scriptsize voix
+    \item \scriptsize rythme du clavier
+    \item \scriptsize géolocalisation
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/auth-par-mdp.png}
+\end{center}
+
+\footnotesize \subsection{Authentification à deux facteurs (2FA)}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Idée
+    \begin{itemize}[label={}]
+        \item \scriptsize Combiner au moins deux facteurs d'authentification
+        \item \scriptsize Chaque facteur a besoin d'une attaque différente
+    \end{itemize}
+    \item \scriptsize Méthode « simple »
+    \begin{itemize}[label={}]
+        \item \scriptsize MP + {biométrie OU jeton} + $\ldots$
+        \item \scriptsize Tous les facteurs vérifiés localement par serveur d'authentification
+    \end{itemize}
+    \item \scriptsize Méthode « threshold »
+    \begin{itemize}[label={}]
+        \item \scriptsize M de N facteurs doivent être corrects
+    \end{itemize}
+    \item \scriptsize Méthode « OTP »
+    \begin{itemize}[label={}]
+        \item \scriptsize MP + Mot de passe à usage unique (One-Time Password)
+        \item \scriptsize Deux méthode possibles
+        \begin{itemize}[label=$\rightarrow$]
+            \item \scriptsize Méthode localement
+            \item \scriptsize Méthode à distance (remote)
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \section{Contrôle d'accès}
+
+\begin{flushleft}
+    \scriptsize \textbf{4 aspects}
+\end{flushleft}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Identification: Déterminer l'identité du demandeur
+    \item \scriptsize Validation de l'identité du demandeur
+    \item \scriptsize Validation du droit d'accès au ressources
+    \item \scriptsize Audit(« Accounting »): Attribution d'actions à une identité
+    \item \scriptsize $\rightarrow$ AAA(Authentification, Authorization and Accounting) ou IAAA
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize \textbf{Dans un système d'exploitation}
+\end{flushleft}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Identification: nom usager, identificatuer de processus (PID)
+    \item \scriptsize Authentification: commande d'authentification
+    \item \scriptsize Autorisation: matrice d'accès, contrôleur de référence
+    \item \scriptsize Audit: journaux (« logs »)
+\end{itemize}
+
+\footnotesize \subsection{Contrôleur de référence}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Implémenter dans le noyau du système d'exploitation
+    \item \scriptsize Maintient la sécurité au niveau voulu
+    \item \scriptsize Vérifie chaque demande d'entrée selon une procédure stricte
+    \item \scriptsize Composant qui s'interpose entre tous les accès de sujets à objets
+    \item \scriptsize Sujet = Utilisateur ou processus
+    \item \scriptsize Objet = Processus ou ressource (fichier)
+    \item \scriptsize Mode d'accès = {R-Read, W-Write, X-Execute}
+    \item \scriptsize Input: Requête d'accès (sujet, objet, mode d'accès)
+    \item \scriptsize Output: Réponse (oui ou non) selon l'accès est permis ou pas
+\end{itemize}
+
+\footnotesize \subsection{Matrice d'accès}
+
+\begin{flushleft}
+    \scriptsize Pour un ordinateur avec A sujets et B objets, la matrice d'accès aura une taille $A \times B$. La majorité des cellules seront vides.
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/matice_accès.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Listes de contrôle d'accès (ACL)
+    \begin{itemize}[label={}]
+        \item \scriptsize Prendre chaque colonne de la matrice d'accès pour chaque sujet non-vide
+        \item \scriptsize Stocker la liste d'accès avec l'objet
+        \item \scriptsize Pour chaque accès à l'objet, le contrôleur de référence vérifie si le sujet a les droits requis
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{Sous LINUX}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Toutes les resources sont des objets (fichier, répertoire, mémoire, IO)
+    \item \scriptsize Chaque objet a un propriétaire
+    \item \scriptsize L'administrateur peut ajouter de nouveaux utilisateurs, lire et changer tous les objets, et changer les droits d'accès de tous les objets.
+    \item \scriptsize Les utilisateurs peuvent seulement accéder aux objets pour lesquels ils ont la permission, et peuvent seulement changer les droits d'accès des objets dont ils sont propriétaires.
+    \item \scriptsize Les logiciels s'exécutent avec les droits utilisateurs de l'utilisateur qui a lancé le programme
+\end{itemize}
+
+\footnotesize \subsection{DAC et MAC}
+
+\footnotesize \subsection{RBAC}
+
+\footnotesize \subsection{ABAC}
+
+\footnotesize \subsection{IAM}
+
 % --- Cours 7 ---
 
 % --- Cours 8 ---
