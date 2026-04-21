@@ -934,17 +934,32 @@
     \item \scriptsize Bon principe pour exprimer, déployer et mettre à jour la politique de contrôle d'accès
 \end{itemize}
 
-% --- Cours 7 ---
+\footnotesize \section{Sécurité des réseaux}
 
-% --- Cours 8 ---
+\footnotesize \subsection{NAT (Network Address Translation)}
 
-% --- Cours 9 ---
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/nat.png}
+\end{center}
 
-% --- Cours 10 ---
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Attaque par inondation (Syn flooding)
+    \item \scriptsize Écoute de trafic
+    \item \scriptsize Modification du routage des datagrammes IP
+\end{itemize}
 
-% --- Cours 11 ---
+\footnotesize \subsection{Pare-feu}
 
-% --- Cours 12 ---
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Le pare-feu est un équipement ou logiciel qui agit en tant que filtre réseau
+    \item \scriptsize Un pare-feu doit être configuré conformément à une politique de sécurité qui définit les paquets autorisés à traverser le pare-feu (et aussi les interdictions) 
+    \item \scriptsize Politique de sécurité = Ensemble de règles (Règle = ACL (Access Control List))
+    \item \scriptsize Équipement en coupure entre 2 ou plusieurs réseaux
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize inspecte les paquets réseaux traversant le pare-feu
+        \item \scriptsize Le pare-feu ne transmet que les paquets qui respectent les règles de filtrage implémentées dans la configuration du pare-feu
+    \end{itemize}
+\end{itemize}
 
 \end{multicols}
 
