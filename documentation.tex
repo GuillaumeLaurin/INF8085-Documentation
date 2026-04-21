@@ -961,6 +961,95 @@
     \end{itemize}
 \end{itemize}
 
+\begin{flushleft}
+    \scriptsize \textbf{Pare-feu statique}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Examine paquet par paquet
+    \item \scriptsize Conserve pas d'informationm sur l'état
+    \item \scriptsize Le pare-feu inspecte les paquets réseau en se basant sur les informations de l'en-tête du paquet
+    \item \scriptsize Le pare-feu prend une décision (pass, block, log) en fonction des règles de la politique de sécurité
+    \item \scriptsize La décision de filtrage dépend uniquement des données des couches 2,3 et 4
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Addresse IP source/destination
+        \item \scriptsize Port source/destination
+        \item \scriptsize Type de protocole utilisé (TCP/UDP/ICMP)
+        \item \scriptsize Signalisation du paquet (SYN, ACK)
+        \item \scriptsize Addresses MAC
+    \end{itemize}
+    \item \scriptsize Peut être implémenté en logiciel (ex: IPtables) ou matériel (ex: routeur Cisco)
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize \textbf{Pare-feu dynamique}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Examine paquet par paquet, mais essaie d'établir des relations entre paquets
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize UDP
+        \begin{itemize}[label={}]
+            \item \scriptsize Associe le paquet avec d'autres paquets sur les mêmes ports et addresses
+            \item \scriptsize En général, permet seulement des réponses si requêtes originales venant d'addresses internes
+        \end{itemize}
+        \item \scriptsize TCP
+        \begin{itemize}[label={}]
+            \item \scriptsize Garde l'information sur l'état et direction de la session TCP
+            \item \scriptsize Regarde en plus les flags TCP pour déterminer si hors-protocole
+        \end{itemize}
+        \item \scriptsize Applications qui changent de port (e.g. FTP)
+        \begin{itemize}[label={}]
+            \item \scriptsize Suit et autorise les port éphémères utilisés par les applications
+        \end{itemize}
+    \end{itemize}
+    \item \scriptsize Ces pare-feu sont limités aux couches 2 à 4 du modèle OSI
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Pas de connaissance de l'état de la connexion au niveau applicatifs
+        \item \scriptsize Usurpation de port
+    \end{itemize}
+    \item \scriptsize Plusieurs attaques passent par les ports ouvert
+    \item \begin{itemize}[label=$\circ$]
+        \item \scriptsize Injection SQL
+        \item \scriptsize Attaques de force brute
+    \end{itemize}
+    \item \scriptsize En augmentant l'intelligence d'un pare-feu pour interpréter les protocoles applicatifs ont peut obtenir une meilleur analyse du trafic
+    \item \begin{itemize}[label=$\circ$]
+        \item \scriptsize Pare-feu applicatif
+        \item \scriptsize Serveur mandataire ou « proxy »
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{Proxy}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Le proxy est une implémentation particulière de pare-feu couche 7
+    \item \scriptsize Le proxy peut s'interposer pour faire l'inspection et du blocage
+    \item \scriptsize Le proxy camoufle l'addresse interne (extérieur voit uniquement le proxy)
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/security_layers.png}
+\end{center}
+
+\footnotesize \subsection{DMZ}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Pour augmenter la flexibilité d'un pare-feu, on segmente le réseau
+    \item \scriptsize Un attaquant qui compromet une machine dans un segment doit travailler aussi fort pour compromettre une machine dans un autre segment
+    \item \scriptsize Une zone spécialisée bâtie pour exposer des services sur Internet est appelée zone démilitarisée (DMZ)
+    \item \scriptsize Raffiner les règles de filtrage
+    \item \scriptsize Permet de faire la séparation des zones en fonction des risques
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{static/dmz.png}
+\end{center}
+
+\footnotesize \section{Sécurité Logiciel}
+
+\footnotesize \section{Sécurité Web}
+
 \end{multicols}
 
 \end{document}
