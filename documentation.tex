@@ -432,11 +432,54 @@
     \end{itemize}
 \end{itemize}
 
-% --- Cours 4 ---
+\footnotesize \subsection{Petit Théorème de Fermat}
 
-% --- Cours 5 ---
+\begin{flushleft}
+    \scriptsize $a^{p-1} \equiv 1(\mod p)$
+\end{flushleft}
 
-% --- Cours 6 ---
+\footnotesize \subsection{Théorème d'Euler}
+
+\begin{flushleft}
+    \scriptsize $a^{\phi(n)} \equiv 1(\mod n)$
+    \scriptsize $\phi(n)$: nombre d'entier $1 \le k \le n$ qui sont premier à $n$
+\end{flushleft}
+
+\footnotesize \subsection{RSA: Abélien}
+
+\begin{itemize}[label={}]
+    \item \scriptsize $n = p \times q$
+    \item \scriptsize $p,q$ sont des nombres premiers
+    \item \scriptsize $\phi(n) = (p-1) \times (q-1)$
+    \item \scriptsize clé publique $e$ $(n, e)$
+    \begin{itemize}[label={}]
+        \item \scriptsize $\text{pgcd}(e, \phi(n)) = 1$
+        \item \scriptsize $1 < e < \phi(n)$
+    \end{itemize}
+    \item \scriptsize clé privé $d$ $(n, d)$
+    \begin{itemize}[label={}]
+        \item \scriptsize inverse de $e \mod(\phi(n))$
+        \item \scriptsize $\frac{1 + k \times \phi(n)}{e}$
+    \end{itemize}
+    \item \scriptsize garantit que
+    \item \scriptsize ${(M^{e})}^{d} \equiv M (\mod n)$
+\end{itemize}
+
+\footnotesize \subsection{El-Gamal: Multiplicatif}
+
+\begin{itemize}[label={}]
+    \item \scriptsize $c_{1} = g^{k}(\mod p)$
+    \item \scriptsize $c_{2} = m \cdot y^{k} (\mod p)$
+    \item \scriptsize $(c_{1}, c_{2})$
+    \item \scriptsize clé privée: $x$
+    \item \scriptsize clé publique: $(p, g, y)$
+\end{itemize}
+
+\footnotesize \subsection{ECC: Corps de Galois}
+
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/ecs.png}
+\end{center}
 
 % --- Cours 7 ---
 
