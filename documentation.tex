@@ -25,6 +25,7 @@
 \usepackage{xcolor}     % Couleurs
 \usepackage{tcolorbox}  % Boîtes colorées
 \usepackage{graphicx}   % Insertion d'images
+\usepackage{parskip}    % Contrôle paragraphes
 
 % --- Couleurs personnalisées ---
 
@@ -38,27 +39,45 @@
 
 \pagestyle{empty}
 
+% --- Suppression des espaces verticaux globalement ---
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+\setlength{\jot}{0pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{3pt}
+ 
+% --- En-têtes et pieds de page ---
+ 
+\pagestyle{empty}
+ 
 % --- Style des sections ---
-
+ 
 \titleformat{\section}% 
-    {\footnotesize\bfseries\color{accentblue}}
-    {\thesection.}{0.5em}{}[\titlerule]
-
+    {\fontsize{6}{6}\bfseries\color{accentblue}}
+    {\thesection.}{0.3em}{}[\vspace{-2pt}\titlerule\vspace{-2pt}]
+ 
 \titleformat{\subsection}
-    {\footnotesize\bfseries\color{accentblue!70!black}}
-    {\thesubsection.}{0.5em}{}
-
-\titlespacing{\section}{0pt}{0pt}{0pt}
-
-\titlespacing{\subsection}{0pt}{0pt}{0pt}
-
+    {\fontsize{6}{6}\bfseries\color{accentblue!70!black}}
+    {\thesubsection.}{0.3em}{}
+ 
+\titlespacing{\section}{0pt}{1pt}{0pt}
+\titlespacing{\subsection}{0pt}{1pt}{0pt}
+ 
 % --- Environnements utiles ---
-
+ 
 \newtcolorbox{vocabulaire}[1][]{
     colback=accentblue!5, colframe=accentblue!70!black,
     fonttitle=\bfseries, title=Vocabulaire #1,
-    boxrule=0.2pt, arc=5pt, left=0pt, right=0pt, top=0pt, bottom=0pt
+    boxrule=0.2pt, arc=2pt, left=0pt, right=0pt, top=0pt, bottom=0pt
 }
+ 
+% Réduire l'espace des listes globalement
+\setlist{nosep, topsep=0pt, partopsep=0pt, parsep=0pt, itemsep=0pt, leftmargin=0.8em}
+\setlist[itemize]{label=$\bullet$, nosep, topsep=0pt, partopsep=0pt, parsep=0pt, itemsep=0pt, leftmargin=0.8em}
 
 % ========================================================================
 
@@ -67,8 +86,6 @@
 % --- Début du contenu 3 colonnes ---
 
 \begin{multicols}{3}
-
-\footnotesize \section{Concepts de base}
 
 \footnotesize \subsection{Qu'est-ce que la sécurité informatique}
 
@@ -88,7 +105,9 @@
     \item \scriptsize Attaques furtives
 \end{itemize}
 
-\footnotesize \section{Analyse et gestion des risques}
+\begin{flushleft}
+    \scriptsize \textbf{Analyse et gestion des risques}
+\end{flushleft}
 
 \footnotesize \subsection{Menace}
 
@@ -163,7 +182,7 @@
     \includegraphics[width=1\linewidth]{static/matrice_risque.png}
 \end{center}
 
-\footnotesize \section{Modèle de Shannon}
+\footnotesize \subsection{Modèle de Shannon}
 
 \begin{center}
     \scriptsize source $\rightarrow$ codeur $\Rightarrow$ décodeur $\rightarrow$ récepteur
@@ -205,13 +224,17 @@
     \end{itemize}
 \end{itemize}
 
-\footnotesize \subsection{Correction d'erreur}
+\begin{flushleft}
+    \scriptsize \textbf{Correction d'erreur}
+\end{flushleft}
 
 \begin{flushleft}
     \scriptsize source $\rightarrow$ codeur $\rightarrow$ ajout syndrome $\Rightarrow$ \text{corr.\ erreur} $\rightarrow$ décodeur $\rightarrow$ récepteur
 \end{flushleft}
 
-\footnotesize \subsection{Entropie de Shannon}
+\begin{flushleft}
+    \scriptsize \textbf{Entropie de Shannon}
+\end{flushleft}
 
 \begin{itemize}[leftmargin=0.0em,label={}]
     \item \scriptsize $H_{b}(X) = \sum_{i=1}^{n} \log_{b}(1/P_{i}) = -\sum_{i=1}^{n} P_{i} \log_{b}(P_{i})$
@@ -252,11 +275,13 @@
     \scriptsize source $\xrightarrow{\sigma}$ $\underset{F}{\text{codeur}}$ $\xrightarrow{\tau}$ $\underset{E}{\text{chiffr.}}$ $\xRightarrow{\tau^{\prime}}$ $\underset{D}{\text{déchiff.}}$ $\xrightarrow{\tau}$ $\underset{F^{-1}}{\text{décodeur}}$ $\xrightarrow{\sigma}$ récepteur
 \end{flushleft}
 
-\footnotesize \section{Algorithmes classiques}
+\footnotesize \subsection{Algorithmes classiques}
 
 % --- Substitution ---
 
-\footnotesize \subsection{Substitution}
+\begin{flushleft}
+    \scriptsize \textbf{Substitution}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize chiffrement
@@ -270,8 +295,9 @@
 \end{itemize}
 
 % --- Transposition ---
-
-\footnotesize \subsection{Transposition « bit shifting »}
+\begin{flushleft}
+    \scriptsize \textbf{Transposition « bit shifting »}
+\end{flushleft}
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
@@ -295,7 +321,9 @@
 
 % --- César ---
 
-\footnotesize \subsection{César}
+\begin{flushleft}
+    \scriptsize \textbf{César}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize chiffrement
@@ -306,7 +334,9 @@
 
 % ---  Décallage --
 
-\footnotesize \subsection{Décallage}
+\begin{flushleft}
+    \scriptsize \textbf{Décallage}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize chiffrement
@@ -321,7 +351,9 @@
 
 % --- Afin ---
 
-\footnotesize \subsection{Afin}
+\begin{flushleft}
+    \scriptsize \textbf{Afin}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize chiffrement
@@ -336,7 +368,9 @@
 
 % --- Algorithme de Vigenère ---
 
-\footnotesize \subsection{Algorithme de Vigenère}
+\begin{flushleft}
+    \scriptsize \textbf{Algorithme de Vigenère}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize clé
@@ -352,7 +386,9 @@
 
 % -- Masque jetable ---
 
-\footnotesize \subsection{Masque jetable}
+\begin{flushleft}
+    \scriptsize \textbf{Masque jetable}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize $\Sigma = T = \{0, 1\}$
@@ -371,7 +407,7 @@
     \scriptsize propriété où la redondance statistique dans un texte en clair est discipée dans les statistiques du texte chiffré.
 \end{flushleft}
 
-\footnotesize \section{Types de chiffrement}
+\footnotesize \subsection{Types de chiffrement}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize  bloc
@@ -394,7 +430,9 @@
     \end{itemize}
 \end{itemize}
 
-\footnotesize \subsection{DES}
+\begin{flushleft}
+    \scriptsize \textbf{DES}
+\end{flushleft}
 
 \begin{flushleft}
     \scriptsize taille 56 bits
@@ -404,7 +442,9 @@
     \includegraphics[width=1\linewidth]{static/des.png}
 \end{center}
 
-\footnotesize \subsection{Double DES}
+\begin{flushleft}
+    \scriptsize \textbf{Double DES}
+\end{flushleft}
 
 \begin{itemize}[label={}]
     \item \scriptsize $E(k_{2}, E(k_{1}, m))$
@@ -414,7 +454,9 @@
     \item \scriptsize Sensible à une attaque meet in the middle
 \end{itemize}
 
-\footnotesize \subsection{Triple DES}
+\begin{flushleft}
+    \scriptsize \textbf{Triple DES}
+\end{flushleft}
 
 \begin{itemize}[label={}]
     \item \scriptsize $E(k_{1}, D(k_{2}, E(k_{1}, m)))$
@@ -423,7 +465,9 @@
     \item \scriptsize Sensible à une attaque meet in the middle
 \end{itemize}
 
-\footnotesize \subsection{AES}
+\begin{flushleft}
+    \scriptsize \textbf{AES}
+\end{flushleft}
 
 \begin{itemize}[label={}]
     \item \scriptsize blocs de 128 bits
@@ -481,7 +525,7 @@
     \includegraphics[width=0.5\linewidth]{static/ecs.png}
 \end{center}
 
-\footnotesize \section{Authentification}
+\footnotesize \subsection{Authentification}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize Authentification
@@ -587,7 +631,7 @@
     \end{itemize}
 \end{itemize}
 
-\footnotesize \section{Contrôle d'accès}
+\footnotesize \subsection{Contrôle d'accès}
 
 \begin{flushleft}
     \scriptsize \textbf{4 aspects}
@@ -934,9 +978,15 @@
     \item \scriptsize Bon principe pour exprimer, déployer et mettre à jour la politique de contrôle d'accès
 \end{itemize}
 
-\footnotesize \section{Sécurité des réseaux}
+\footnotesize \subsection{Sécurité des réseaux}
 
-\footnotesize \subsection{NAT (Network Address Translation)}
+\begin{center}
+    \includegraphics[width=1\linewidth]{static/security_layers.png}
+\end{center}
+
+\begin{flushleft}
+    \scriptsize \textbf{NAT (Network Address Translation)}
+\end{flushleft}
 
 \begin{center}
     \includegraphics[width=1\linewidth]{static/nat.png}
@@ -948,7 +998,9 @@
     \item \scriptsize Modification du routage des datagrammes IP
 \end{itemize}
 
-\footnotesize \subsection{Pare-feu}
+\begin{flushleft}
+    \scriptsize \textbf{Pare-feu}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize Le pare-feu est un équipement ou logiciel qui agit en tant que filtre réseau
@@ -1020,7 +1072,9 @@
     \end{itemize}
 \end{itemize}
 
-\footnotesize \subsection{Proxy}
+\begin{flushleft}
+    \scriptsize \textbf{Proxy}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize Le proxy est une implémentation particulière de pare-feu couche 7
@@ -1028,11 +1082,9 @@
     \item \scriptsize Le proxy camoufle l'addresse interne (extérieur voit uniquement le proxy)
 \end{itemize}
 
-\begin{center}
-    \includegraphics[width=1\linewidth]{static/security_layers.png}
-\end{center}
-
-\footnotesize \subsection{DMZ}
+\begin{flushleft}
+    \scriptsize \textbf{DMZ}
+\end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
     \item \scriptsize Pour augmenter la flexibilité d'un pare-feu, on segmente le réseau
@@ -1046,7 +1098,7 @@
     \includegraphics[width=0.5\linewidth]{static/dmz.png}
 \end{center}
 
-\footnotesize \section{Sécurité Logiciel}
+
 
 \footnotesize \subsection{Débordement de tampon}
 
@@ -1062,7 +1114,7 @@
 \end{itemize}
 
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{static/debordement-variable.png}
+    \includegraphics[width=0.25\linewidth]{static/debordement-variable.png}
 \end{center}
 
 \begin{itemize}[label=$\bullet$]
@@ -1158,9 +1210,11 @@
     \end{itemize}
 \end{itemize}
 
-\footnotesize \section{Sécurité Web}
+\footnotesize \subsection{Sécurité Web}
 
-\footnotesize \subsection{Authentification}
+\begin{flushleft}
+    \scriptsize \textbf{Authentification}
+\end{flushleft}
 
 \begin{center}
     \includegraphics[width=1\linewidth]{static/auth.png}
