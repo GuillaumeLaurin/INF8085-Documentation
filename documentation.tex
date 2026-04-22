@@ -90,10 +90,10 @@
 \footnotesize \subsection{Qu'est-ce que la sécurité informatique}
 
 \begin{itemize}[leftmargin=0.5em,label=$\bullet$]
-    \item \scriptsize\textbf{Confidentialité}
-    \item \scriptsize\textbf{Intégrité}
-    \item \scriptsize\textbf{Disponibilité}
-    \item \scriptsize\textbf{Auditabilité}
+    \item \scriptsize\textbf{Confidentialité}: Préserver les restrictions sur l'accès à l'information de communication
+    \item \scriptsize\textbf{Intégrité}: Protection contre la modification ou la destruction de l'information
+    \item \scriptsize\textbf{Disponibilité}: La capacité d'être en mesure de vérifier l'identité d'un utilisateur, processus, ou un dispositif
+    \item \scriptsize\textbf{Auditabilité}: L'expéditeur d'une information ne peut rejeter, renoncer, démentir, récuser, contester, nier être l'auteur
 \end{itemize}
 
 \footnotesize \subsection{Limites de la cyber défense}
@@ -401,11 +401,22 @@
     \scriptsize propriété de rendre la relation entre la clé de chiffrement et le text chiffré la plus complexe possible.
 \end{flushleft}
 
+\begin{itemize}[label={}]
+    \item \scriptsize Vise à rendre  la relation entre la clé et le texte chiffré aussi compliqué que possible
+    \item \scriptsize Masquer la structure  de la clé dans le chiffré
+    \item \scriptsize Si on modifie un seul bit de la clé, le texte chiffré doit changer de façon imprévisible
+\end{itemize}
+
 \footnotesize \subsection{Diffusion}
 
 \begin{flushleft}
     \scriptsize propriété où la redondance statistique dans un texte en clair est discipée dans les statistiques du texte chiffré.
 \end{flushleft}
+
+\begin{itemize}[label={}]
+    \item \scriptsize Vise à répartir l'influence d'un symbole du texte clair sur le plus grand nombre de symboles du texte chiffré
+    \item \scriptsize Un petit changement dans le texte claire (ex: une lettre) doit affecter beaucoup de bits du texte chiffré
+\end{itemize}
 
 \footnotesize \subsection{Types de chiffrement}
 
@@ -631,6 +642,29 @@
     \end{itemize}
 \end{itemize}
 
+\begin{flushleft}
+    \scriptsize \textbf{OTP - Méthode locale}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Enregistrement du device
+    \item \scriptsize OTP généré localement par dispositif
+    \item \scriptsize OTP envoyé par usager via Internet
+    \item \scriptsize Serveur vérifie
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize \textbf{OTP - Méthode distant}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Usager se connecte en indiquant usager et MP
+    \item \scriptsize Serveur calcule OTP aléatoire
+    \item \scriptsize Serveur obtient no. de téléphone d'usage sur BD
+    \item \scriptsize Serveur envoie OTP au téléphone par un autre canal (SMS) aussi appelé « side channel »
+    \item \scriptsize Usager entre OTP et envoie via Internet
+\end{itemize}
+
 \footnotesize \subsection{Contrôle d'accès}
 
 \begin{flushleft}
@@ -700,7 +734,7 @@
 \end{itemize}
 
 \begin{flushleft}
-    \scriptsize textbf{Utilisateurs}
+    \scriptsize \textbf{Utilisateurs}
 \end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
@@ -710,7 +744,7 @@
 \end{itemize}
 
 \begin{flushleft}
-    \scriptsize textbf{Groupes}
+    \scriptsize \textbf{Groupes}
 \end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
@@ -1011,6 +1045,8 @@
         \item \scriptsize inspecte les paquets réseaux traversant le pare-feu
         \item \scriptsize Le pare-feu ne transmet que les paquets qui respectent les règles de filtrage implémentées dans la configuration du pare-feu
     \end{itemize}
+    \item \scriptsize Un Pare-feu applicatif ne protège pas contre les failles de logique dans l'application Web
+    \item \scriptsize Un Pare-feu applicatif protège les services d'un balayage de ports (ports scan) avec l'outil nmap (excluant les services qui doivent rester disponibles)
 \end{itemize}
 
 \begin{flushleft}
@@ -1031,6 +1067,7 @@
         \item \scriptsize Addresses MAC
     \end{itemize}
     \item \scriptsize Peut être implémenté en logiciel (ex: IPtables) ou matériel (ex: routeur Cisco)
+    \item \scriptsize Un pare-feu sans état est un pare-feu qui ne stocke pas d'informations sur l'état actuel d'une connexion réseau. Au lieu de cela, il évalue chaque paquet individuellement et tente de déterminer s'il est autorisé ou non en fonction des données qu'il contient.
 \end{itemize}
 
 \begin{flushleft}
@@ -1080,6 +1117,15 @@
     \item \scriptsize Le proxy est une implémentation particulière de pare-feu couche 7
     \item \scriptsize Le proxy peut s'interposer pour faire l'inspection et du blocage
     \item \scriptsize Le proxy camoufle l'addresse interne (extérieur voit uniquement le proxy)
+    \item \scriptsize Principes de bastionnage
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Exécuter une version sécurisée du système d'exploitation
+        \item \scriptsize Installer uniquement les services nécessaires pour l'administration réseau
+        \item \scriptsize Configurer chaque proxy pour assurer un sous-ensemble nécessaire des commandes du standard de l'application
+        \item \scriptsize Concevoir chaque module de proxy de façon minimale et sécurisée
+        \item \scriptsize Chaque proxy doit journaliser le trafic, chaque connexion et la durée de chaque connexion
+        \item \scriptsize Chaque proxy s'exécuter comme un usager non privilégié dans un répertoire privé et sécurisé
+    \end{itemize}
 \end{itemize}
 
 \begin{flushleft}
@@ -1258,8 +1304,8 @@
         \item \scriptsize ' or '1'='1
         \item \scriptsize lorsqu'il y a concaténation des identifiants de l'utilisateur
     \end{itemize}
+    \item \scriptsize Envoyer le code usager et le mot de passe sans chiffrer au serveur de BD relationnelle pour ouvrir une session SQL représente un risque très élevé en termes d'exposition à un scénario de piratage (via Internet) 
 \end{itemize}
-
 
 \begin{flushleft}
     \scriptsize \textbf{Cross site scripting (XSS) non persistent}
@@ -1305,11 +1351,30 @@
 \end{flushleft}
 
 \begin{itemize}[label=$\bullet$]
-    \item \scriptsize Détecter la présence de vecteurs d'attaque en examinant le trafic réseau
-    \item \scriptsize Le trafic est capturé à un ou plusieurs endroits sur le réseau
-    \item \scriptsize Examen de chacun des paquets capturés
-    \item \scriptsize Un mécanisme de détection est appliqué
-    \item \scriptsize Des alertes sont générées et enregistrées dans un journal
+    \item \scriptsize Système de détection d'intrusion (IDS)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Détecter la présence de vecteurs d'attaque en examinant le trafic réseau
+        \item \scriptsize Le trafic est capturé à un ou plusieurs endroits sur le réseau
+        \item \scriptsize Examen de chacun des paquets capturés
+        \item \scriptsize Un mécanisme de détection est appliqué
+        \item \scriptsize Des alertes sont générées et enregistrées dans un journal
+        \item \scriptsize L'acquisition et le déploiement d'un système de détection d'intrusion (IDS) ne constitue pas une mesure de bastionnage de réseau. 
+    \end{itemize} 
+    \item \scriptsize Faux positif
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Fausse alerte
+        \item \scriptsize Une alerte est générée par l'IDS alors qu'il n'y a pas d'attaque
+    \end{itemize}
+    \item \scriptsize Faux négatif
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Absence de détection
+        \item \scriptsize Pas d'alerte alors qu'il y a une attaque
+    \end{itemize}
+    \item \scriptsize Deux types d'IDS
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Détection par règle
+        \item \scriptsize Détection par anomalie
+    \end{itemize}
 \end{itemize}
 
 \begin{flushleft}
@@ -1326,6 +1391,16 @@
     \item \scriptsize Pas de pénétration
     \item \scriptsize Camouflage optionnel
     \item \scriptsize Pas de contre-mesures absolues
+    \item \scriptsize DoS affecte la capacité
+\end{itemize}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Smurf attack (attaque par réflexion)
+    \item \scriptsize Usurpation d'adresse IP (spoofing)
+    \item \scriptsize Réflexion de trafic en ayant recours à des systèmes tiers « innocents »
+    \item \scriptsize Attaquant envoie des paquets PING à des systèmes tiers joignables en indiquant l'@IP de la future victime comme @IP source
+    \item \scriptsize Chaque système pense ainsi recevoir un PING de la part d'un système distant, et chacun va répondre à ce PING
+    \item \scriptsize Avec suffisament de ressources, l'attaquant sera en mesure de faire générer suffisamment de trafic pour affecter les performances de la victime
 \end{itemize}
 
 \begin{center}
@@ -1348,6 +1423,7 @@
         \item \scriptsize Pptp (VPN natif sous Windows)
     \end{itemize}
     \item \scriptsize Tout protocole point-à-point pouvant supporter du chiffrement et de l'authentification peut faire office de tunnel pour établir un VPN
+    \item \scriptsize L'utilisation d'un routeur est compatible avec l'utilisation d'un VPN
 \end{itemize}
 
 \begin{center}
