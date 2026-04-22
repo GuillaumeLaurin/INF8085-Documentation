@@ -1048,6 +1048,116 @@
 
 \footnotesize \section{Sécurité Logiciel}
 
+\footnotesize \subsection{Débordement de tampon}
+
+\begin{flushleft}
+    \scriptsize  \textbf{Attaques de débordement sur les variables}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Une variable tampon (« buffer ») est accessible à l'usager
+    \item \scriptsize Le programme ne vérifie pas si les valeurs entrées dépassent la mémoire allouée pour la variable tampon
+    \item \scriptsize Les variables « cibles » qu'on veut changer ne sont « pas loin » et peuvent être changées par débordement
+    \item \scriptsize Les variables et paramètres qui sont modifiées vont permettre de changer le fonctionnement du programme
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{static/debordement-variable.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Zone Kernel
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize En haut de la zone mémoire
+        \item \scriptsize Contient les paramètres du programme et les variables d'environnement
+    \end{itemize}
+    \item \scriptsize Zone text
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize En bas de la zone mémoire
+        \item \scriptsize Contient les instructions machine compilées
+        \item \scriptsize Zone read only que l'on ne peut pas modifier
+    \end{itemize}
+    \item \scriptsize Data
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Au-dessus de la zone text
+        \item \scriptsize Contient les variables globales
+    \end{itemize}
+    \item \scriptsize Heap (tas)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Au-dessus de la zone data
+        \item \scriptsize Grande zone mémoire qui permet d'ajouter des données
+    \end{itemize}
+    \item \scriptsize Stack (pile)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize En dessous du kernel
+        \item \scriptsize La pile sert à gérer les appels de fonction 
+        \item \scriptsize Contient les variables locales
+    \end{itemize}
+    \item \scriptsize Gestion des appels de fonctions
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Lors d'un appel de fonction, les paramètres de la fonction sont poussés sur la stack
+        \item \scriptsize La fonction fait un jump quelque par dans la mémoire pour s'exécuter
+        \item \scriptsize Lorsque l'exécution de la fonction est terminée, l'addresse de retour permet de continuer l'exécution
+    \end{itemize}
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{static/stack.png}
+\end{center}
+
+\begin{flushleft}
+    \scriptsize \textbf{Attaque par débordement de la pile}
+\end{flushleft}
+
+\begin{center}
+    \includegraphics[width=0.25\linewidth]{static/buffer_overflow.png}
+\end{center}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Construire une chaine de caractères contenant le shell code
+    \item \scriptsize Terminer la chaîne de caractères avec une addresse de retour qui va remplacer l'adresse de retour initial pour permettre l'exécution du shell code
+    \item \scriptsize Compléter le début de la chaîne avec des NOP (padding) pour que la chaine de caractères ait la bonne taille
+    \item \scriptsize Passer cette chaine de caractères en paramètres de la fonction 'buf'
+    \item \scriptsize Analyse du code
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Fonctions vulnérables en C/C++ (fgets, gets, getws, memcpy, memmove, memmove, scanf, sprintf, strcat, strncpy)
+        \item \scriptsize Array à allocation dynamique
+        \item \scriptsize Pointeurs
+    \end{itemize}
+\end{itemize}
+
+\footnotesize \subsection{Contre-mesures contre le débordements de tampon}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Solutions intégrées au compilateur
+    \item \scriptsize Canaries (StackGuard)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Valeurs insérées entre le tampon et les données de contrôle
+        \item \scriptsize Permet de détecter un débordement de tampon en vérifiant si le canarie n'a pas été modifié
+    \end{itemize}
+    \item \scriptsize StackShield
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Sauvegarder les pointeurs de retour en dehors de la pile
+    \end{itemize}
+    \item \scriptsize Executable-space protection (ESP)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Protection de l'espace exécutable
+        \item \scriptsize Marquer certaines zones en mémoire comme non exécutable
+        \item \scriptsize Typiquement la pile
+        \item \scriptsize Rend impossible l'exécution d'un shellm code dans la pile
+    \end{itemize}
+    \item \scriptsize Address space layout randomization (ASLR)
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Distribution aléatoire de l'espace d'addressage
+        \item \scriptsize OpenBSD depuis 2003, Linux depuis 2005 et Windows depuis 2007
+    \end{itemize}
+    \item \scriptsize Principe
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Placer de façon aléatoire les zones de données dans la mémoire virtuelle
+        \item \scriptsize En général, la position du tas, de la pile et des bibliothèques
+    \end{itemize}
+\end{itemize}
+
 \footnotesize \section{Sécurité Web}
 
 \footnotesize \subsection{Authentification}
