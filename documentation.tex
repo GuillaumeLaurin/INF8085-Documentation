@@ -1300,6 +1300,59 @@
     \end{itemize}
 \end{itemize}
 
+\begin{flushleft}
+    \scriptsize \textbf{Détection d'intrusion}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Détecter la présence de vecteurs d'attaque en examinant le trafic réseau
+    \item \scriptsize Le trafic est capturé à un ou plusieurs endroits sur le réseau
+    \item \scriptsize Examen de chacun des paquets capturés
+    \item \scriptsize Un mécanisme de détection est appliqué
+    \item \scriptsize Des alertes sont générées et enregistrées dans un journal
+\end{itemize}
+
+\begin{flushleft}
+    \scriptsize \textbf{Protection contre les attaques par inondation}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Éliminer ou réduire la qualité de service d'un fournisseur de services
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize Par vulnérabilité (« crippling DoS »)
+        \item \scriptsize Par saturation (« Flood DoS »)
+        \item \scriptsize Par absorption (« Black hole DoS »)
+    \end{itemize} 
+    \item \scriptsize Pas de pénétration
+    \item \scriptsize Camouflage optionnel
+    \item \scriptsize Pas de contre-mesures absolues
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{static/dos.png}
+\end{center}
+
+\begin{flushleft}
+    \scriptsize \textbf{VPN}
+\end{flushleft}
+
+\begin{itemize}[label=$\bullet$]
+    \item \scriptsize Protège la confidentialité des données
+    \item \scriptsize Prévient l'interception de trafic
+    \item \scriptsize Prévient la modification de trafic en transit
+    \item \scriptsize Prévient la connexion par des utilisateurs non autorisés
+    \item \scriptsize Plusieurs méthodes
+    \begin{itemize}[label=$\circ$]
+        \item \scriptsize IPSec
+        \item \scriptsize SSL
+        \item \scriptsize Pptp (VPN natif sous Windows)
+    \end{itemize}
+    \item \scriptsize Tout protocole point-à-point pouvant supporter du chiffrement et de l'authentification peut faire office de tunnel pour établir un VPN
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{static/vpn.png}
+\end{center}
 
 \end{multicols}
 
